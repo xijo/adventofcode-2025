@@ -136,8 +136,20 @@ class Grid
     end
   end
 
+  def each_row
+    y_range.to_a.reverse[0..-2].each do |y|
+      yield y, @mem[y]
+    end
+  end
+
   def contains?(x, y)
     x_range.include?(x) && y_range.include?(y)
+  end
+
+  def count(value)
+    result = 0
+    each { |x, y, v| result += 1 if v == value }
+    result
   end
 
   def inspect_compact
